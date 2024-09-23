@@ -1,8 +1,9 @@
 title: React Guidelines
 description: Guidelines' document for the React team
 theme: just-the-docs
+logo: 'https://media.licdn.com/dms/image/v2/D4E0BAQFEtx2q13hH5Q/company-logo_200_200/company-logo_200_200/0/1719255594120/spacedev_uy_logo?e=1735171200&v=beta&t=MA4ZkCKf5koTqwgBLT-optU6tSq68rTjBcjVmOamWVo'
 
 url: https://spaceUY.github.io/react-guidelines
 
 aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
+  React native docs: https://spaceUY.github.io/react-native-guidelines
