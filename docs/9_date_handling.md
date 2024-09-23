@@ -4,6 +4,8 @@ layout: default
 nav_order: 9
 ---
 
+# Date handling:
+
 ### Choosing the Right Date Handling Library for Your React Project
 
 There are several libraries available for data handling, but we recommend Date-fns.

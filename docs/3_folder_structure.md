@@ -8,7 +8,8 @@ nav_order: 3
 
 ### What folder structure to use depends on the needs of the project?
 
-Modular Architecture:
+#### Modular Architecture:
+
 We use a modular pattern as architecture for our projects. In the case you have different types of users for example a customer and a seller. That see different things or you want to have feature flags or the application may scale in the future. The folders are found in modules and can be used as separate applications. Although you also have components in common. It is important that if we are developing something that use a component that is in one module we need to move that component to the folder /common.
 
 #### Component-Based Architecture:

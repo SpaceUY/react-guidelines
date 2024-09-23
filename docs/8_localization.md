@@ -1,7 +1,7 @@
 ---
 title: Localization
 layout: default
-nav_order:
+nav_order: 8
 ---
 
 # Localization:

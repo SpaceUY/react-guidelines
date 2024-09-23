@@ -4,10 +4,7 @@ layout: default
 nav_order: 6
 ---
 
-## State Management
-
-Technology Review
-Writer: Federico Castañares, Facundo Panizza
+# State Management
 
 ### An example of application layers
 

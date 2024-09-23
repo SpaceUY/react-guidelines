@@ -4,7 +4,9 @@ layout: default
 nav_order: 11
 ---
 
-# Introduction
+# PWA
+
+## Introduction
 
 This document outlines the key principles and technologies for building Progressive Web Apps (PWAs). It covers essential features, caching strategies, and the advantages and disadvantages of two popular frameworks for PWA development: Vite-PWA with CapacitorJS.
 
