@@ -4,7 +4,7 @@ layout: default
 nav_order: 5
 ---
 
-## Data fetching
+# Data fetching
 
 **Technology Review**  
 _Written by: Federico Castañares, Facundo Panizza_

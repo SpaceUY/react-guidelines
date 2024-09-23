@@ -4,7 +4,7 @@ layout: default
 nav_order: 4
 ---
 
-### Choosing the Right Styling Library for Your React Project
+# Choosing the Right Styling Library for Your React Project
 
 When it comes to styling your React project, the decision should depend on the project nature and complexity.
 

@@ -1,10 +1,12 @@
 ---
 title: Localization
 layout: default
-nav_order: 8
+nav_order:
 ---
 
-### What is react-i18next?
+# Localization:
+
+### react-i18next
 
 It is a library that facilitates the integration of internationalization (i18n) into React applications using the ‘I18next’ library.
 It provides a set of specific components and functions designed to work with react, simplifying the translation and localization process in web applications.

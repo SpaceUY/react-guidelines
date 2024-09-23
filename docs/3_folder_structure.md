@@ -4,6 +4,8 @@ layout: default
 nav_order: 3
 ---
 
+# Folder structure
+
 ### What folder structure to use depends on the needs of the project?
 
 Modular Architecture:

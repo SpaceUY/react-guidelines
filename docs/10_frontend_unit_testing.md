@@ -4,10 +4,7 @@ layout: default
 nav_order: 10
 ---
 
-## Frontend Test
-
-Technology Review
-Writer: Leonel Mazzan
+# Unit testing (Front):
 
 ### Introduction
 
