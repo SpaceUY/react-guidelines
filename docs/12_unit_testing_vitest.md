@@ -27,7 +27,7 @@ We use `@testing-library/react`, `@testing-library/user-event` & `@testing-libra
 import { render, screen } from "@testing-library/react";
 import Button from "./Button";
 
-describe("Button Component", () => {
+describe("Button", () => {
 	it("renders with correct text", () => {
 		render(<Button>Click me</Button>);
 		expect(screen.getByText("Click me")).toBeInTheDocument();
