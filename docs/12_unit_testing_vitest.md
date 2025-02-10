@@ -37,6 +37,38 @@ describe("Button", () => {
 		render(<Button disabled>Click me</Button>);
 		expect(screen.getByRole("button")).toBeDisabled();
 	});
+
+  // Calls a prop function when clicked
+  it("calls onButtonClick when clicked", async () => {
+    const handleClick = vi.fn();
+    render(<ExampleButton onButtonClick={handleClick} />);
+    
+    const button = screen.getByRole("button");
+    await userEvent.click(button);
+    
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("handles fetching RTK - API data on button click", async () => {
+		const mockFetchData = vi.fn().mockResolvedValue({});
+		vi.mocked(useFetchDataMutation).mockImplementation(() => [
+			mockFetchData,
+			{
+				isLoading: false,
+				reset: vi.fn(),
+				status: "idle",
+				isError: false,
+				isSuccess: false,
+			},
+		]);
+
+		customRender(<FetchDataButton />);
+		const button = screen.getByRole("button");
+		expect(button).not.toBeDisabled();
+
+		await userEvent.click(button);
+		await waitFor(() => expect(mockFetchData).toHaveBeenCalled(1));
+	});
 });
 ```
 
@@ -212,8 +244,8 @@ We use Vitest's built-in mocking capabilities:
 
 ```tsx
 // Mocking RTK Query endpoints
-vi.mock("@/common/services/forgegg.api", () => ({
-	useGetClaimPointsHistoryQuery: vi.fn(() => ({
+vi.mock("@/common/services/custom.api", () => ({
+	useGetPointsQuery: vi.fn(() => ({
 		data: {
 			data: [],
 		},
@@ -222,7 +254,7 @@ vi.mock("@/common/services/forgegg.api", () => ({
 		isFetching: false,
 		refetch: vi.fn(),
 	})),
-	useGetClaimablePointsQuery: vi.fn(() => ({
+	useGetPointsQuery: vi.fn(() => ({
 		data: {
 			data: {
 				records: [{ points: 100 }],
@@ -241,8 +273,8 @@ vi.mock("@/common/services/forgegg.api", () => ({
 			isSuccess: false,
 		},
 	]),
-	forgeggApi: {
-		reducerPath: "forgegg",
+	customApi: {
+		reducerPath: "custom",
 		reducer: () => ({}),
 		middleware: () => () => {},
 	},
@@ -252,6 +284,30 @@ vi.mock("@/common/services/forgegg.api", () => ({
 vi.mock("react-router-dom", () => ({
 	useNavigate: () => vi.fn(),
 }));
+```
+
+Configure Store
+
+```tsx
+import { MemoryRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { customApi } from "@/common/services/custom.api";
+
+const customRender = (ui: React.ReactElement) => {
+	const store = configureStore({
+		reducer: {
+			[customApi.reducerPath]: customApi.reducer,
+		},
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware().concat(customApi.middleware),
+	});
+	return render(
+		<MemoryRouter>
+			<Provider store={store}>{ui}</Provider>
+		</MemoryRouter>
+	);
+};
 ```
 
 This example shows how to:
