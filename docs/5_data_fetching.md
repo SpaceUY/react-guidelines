@@ -11,7 +11,7 @@ _Written by: Federico Castañares, Facundo Panizza, Enzo Corrales_
 
 ## RTK Query vs React Query
 
-## React Query
+## RTK Query
 
 RTK Query is a powerful tool integrated with Redux Toolkit, specifically designed for fetching and caching server state efficiently.
 
