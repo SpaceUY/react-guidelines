@@ -123,6 +123,11 @@ function UsersList() {
 
 ---
 
+## Additional information
+
+This table created by tanstack ( creators of React Query ) is a helpful visual aid to quickly see underlying differences
+[Comparative table](https://tanstack.com/query/v4/docs/framework/react/comparison)
+
 ## Fetch vs Axios
 
 Both Fetch and Axios are commonly used to perform HTTP requests, each with its strengths.
