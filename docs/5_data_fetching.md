@@ -9,6 +9,107 @@ nav_order: 5
 **Technology Review**  
 _Written by: Federico Castañares, Facundo Panizza_
 
+## Article description
+I will try to cover all ways with pro and crons. I will start with the basic implementation to the most usefull tool
+
+### Fetch
+This example demonstrates fetching data from a public API and displaying it in a list.
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+const DataFetchingComponent = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error fetching data</p>;
+  }
+
+  return (
+    <div>
+      <h1>Data List</h1>
+      <ul>
+        {data.map((item) => (
+          <li key={item.id}>{item.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default DataFetchingComponent;
+```
+
+#### Explanation:
+• State Management: We use useState to manage the data, loading, and error states.
+• Data Fetching: The fetchData function is defined inside the useEffect hook to fetch data when the component mounts.
+• Error Handling: If the fetch request fails, an error is caught, and the error state is set to true.
+• Loading State: While the data is being fetched, a loading message is displayed.
+• Rendering Data: Once the data is fetched successfully, it is displayed in a list.
+
+### Axios -> where fetch have superpowers
+
+The most important thing of axios are:
+• Interceptors: Interceptor is the way for call always the same query builder. For example when you call to your API and you need add a token in the headers or when the response is unauthorized problaby you want redirect to login url.
+You can create your interceptor like this:
+
+```jsx
+import { getLocalStorage } from '@/utils/localstorage';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+
+export const baseURL = import.meta.env.VITE_BACK_URL ?? 'http://localhost:4000';
+
+export const api: AxiosInstance = axios.create({
+  baseURL,
+  withCredentials: false,
+});
+
+api.interceptors.request.use((config) => {
+  const token = getLocalStorage('token');
+  config.headers['Authorization'] = `Bearer ${token}`;
+
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error: { response: AxiosResponse; config: AxiosRequestConfig }) => {
+    if (error.response?.status === 401) {
+      document.location.href = '/login';
+    }
+
+    return Promise.reject(error);
+  },
+);
+```
+
+
+## React-query & Modern redux RTK
 ### Modern Redux, RTK, Redux Query
 
 **Pros:**

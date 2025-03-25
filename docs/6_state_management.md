@@ -6,6 +6,9 @@ nav_order: 6
 
 # State Management
 
+**Technology Review**  
+_Written by: Federico Castañares, Facundo Panizza_
+
 ### An example of application layers
 
 Defining how we are going to separate our application layers helps us maintain a clean architecture. The definition may vary depending on the solution we want to achieve, but we define an example:
