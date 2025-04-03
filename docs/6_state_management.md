@@ -19,33 +19,36 @@ In this example, we will have several features with their respective views. Each
 
 The state in this example can contain both data and UI state.
 
-### Global state with Redux
+### Common State Management Concepts
+Independientemente de la libreria de manejo de estado que eligamos **(Redux o Zustand)** encontramos patrones en común que ayuden en nuestro desarrollo
+
+### Global state
+
+**Cuando usar:** Podemos usar un manejo de estado global en todo flujo que querramos persistir incluso cuando los componentes no esten montados y que al regresar al mismo permanezca. O bien cuando tengamos información util de manera global abstracta por ejemplo, la información del usuario, esta puede ser utilizada en multiples lugares lo cual es util acceder de manera global
+
 
 **Pros:**
 
-- Centralized global state. With Redux, we can store both our data and our UI in a single library.
-- Debugging. With redux-devtools, we can see how our app is changing state, how, and when.
-- Scalable. We can add and remove reducers while maintaining the structure.
+- Reduce significativamente el prop dribling.
+- Se separa la logica de manejo de estado de la UI.
+- Accesibilidad a los datos desde otros componentes.
 
 **Cons:**
 
 - Boilerplate. Considerable boilerplate is required for its implementation.
 - Learning curve. It has complexity for understanding at the beginning.
-- Verbosity. Redux can make your code more verbose, and for simple applications, the benefits might not outweigh the costs.
+- Se debe considerar limpiar los estados siempre que sea necesario ya que persistiran incluso cuando se desmonte el componente.
 
-### Store Structure
 
-One way to structure the store can be to respect the entities we have in our backend, having one reducer for each entity and adding to this a reducer per feature to handle the UI state of the same.
+### Section components
 
-In this way, each reducer copy of an entity will be separate from each feature and can be reused.
-
-![redux-structure](../assets/img/state-2.png)
+Podemos llamar section components a los componentes que corresponden al layout de una page o a una section de la misma, desde estos componentes daremos la estructura y cargaremos los datos necesarios para llamar a los controlled components by props
 
 ### Controlled components by props
 
 ##### What they are and why make them controlled by props
 
-These components receive their state and the function to change it through their props. This facilitates the reuse of components within our application; we just need to respect their interface.
+These components receive their state and the function to change it through their props. This facilitates the reuse of components within our application; we just need to respect their interface. Podríamos llamarlos componentes visuales o de diseño.
 
 **Pros:**
 
@@ -72,3 +75,27 @@ It can be recommended if your application is small and you are going to handle v
 - It can limit you when you have a complex application.
 - It is easy to make mistakes that render the entire application or many parts that you do not want to render again.
 - It does not have any developer tools to view the current state of your application, such as Redux DevTools.
+
+
+## Redux
+
+**Pros:**
+
+- Centralized global state. With Redux, we can store both our data and our UI in a single library.
+- Debugging. With redux-devtools, we can see how our app is changing state, how, and when.
+- Scalable. We can add and remove reducers while maintaining the structure.
+
+**Cons:**
+
+- Boilerplate. Considerable boilerplate is required for its implementation.
+- Learning curve. It has complexity for understanding at the beginning.
+- Verbosity. Redux can make your code more verbose, and for simple applications, the benefits might not outweigh the costs.
+
+
+### Store Structure
+
+One way to structure the store can be to respect the entities we have in our backend, having one reducer for each entity and adding to this a reducer per feature to handle the UI state of the same.
+
+In this way, each reducer copy of an entity will be separate from each feature and can be reused.
+
+![redux-structure](../assets/img/state-2.png)
