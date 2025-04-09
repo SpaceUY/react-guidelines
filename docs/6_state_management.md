@@ -11,86 +11,66 @@ _Written by: Federico Castañares, Facundo Panizza_
 
 ### An example of application layers
 
-Defining how we are going to separate our application layers helps us maintain a clean architecture. The definition may vary depending on the solution we want to achieve, but we define an example:
+Defining how we separate our application layers helps us maintain a clean architecture. The definition may vary depending on the solution we want to achieve, but here's an example:
 
 ![app-layers](../assets/img/state-1.png)
 
-In this example, we will have several features with their respective views. Each view can have shared or specific components for that feature. These components will control the state of the application, mutating them or simply reading them, using controlled components by props to render their content.
+In this example, we will have several features with their respective views. Each view can have shared or specific components for that feature. These components will control the application's state, either mutating it or simply reading it, using controlled components through props to render their content.
 
 The state in this example can contain both data and UI state.
 
 ### Common State Management Concepts
-Independientemente de la libreria de manejo de estado que eligamos **(Redux o Zustand)** encontramos patrones en común que ayuden en nuestro desarrollo
 
-### Global state
+Regardless of the state management library we choose **(Redux or Zustand)**, we find common patterns that help in our development.
 
-**Cuando usar:** Podemos usar un manejo de estado global en todo flujo que querramos persistir incluso cuando los componentes no esten montados y que al regresar al mismo permanezca. O bien cuando tengamos información util de manera global abstracta por ejemplo, la información del usuario, esta puede ser utilizada en multiples lugares lo cual es util acceder de manera global
+### Global State
 
-
-**Pros:**
-
-- Reduce significativamente el prop dribling.
-- Se separa la logica de manejo de estado de la UI.
-- Accesibilidad a los datos desde otros componentes.
-
-**Cons:**
-
-- Boilerplate. Considerable boilerplate is required for its implementation.
-- Learning curve. It has complexity for understanding at the beginning.
-- Se debe considerar limpiar los estados siempre que sea necesario ya que persistiran incluso cuando se desmonte el componente.
-
-
-### Section components
-
-Podemos llamar section components a los componentes que corresponden al layout de una page o a una section de la misma, desde estos componentes daremos la estructura y cargaremos los datos necesarios para llamar a los controlled components by props
-
-### Controlled components by props
-
-##### What they are and why make them controlled by props
-
-These components receive their state and the function to change it through their props. This facilitates the reuse of components within our application; we just need to respect their interface. Podríamos llamarlos componentes visuales o de diseño.
+**When to use:** We can use global state management in any flow where we want to persist data even when components are unmounted, and when returning to the same state, it remains. Or when we have globally useful abstract information, for example, user information that can be used in multiple places, making it useful to access globally.
 
 **Pros:**
 
-- They are easier components to maintain.
-- They allow for greater reuse of them.
-- They are good components to use with libraries for managing global states and also with libraries that help you manage forms.
+- Significantly reduces prop drilling
+- Separates state management logic from UI
+- Provides data accessibility from other components
 
 **Cons:**
+- Must consider cleaning up states when necessary as they persist even when components are unmounted
 
-- If we have several nested components of this type, it can generate a lot of props drilling.
+### Section Components
 
-### useContext
+We can refer to section components as those that correspond to a page layout or a section of it. From these components, we'll provide the structure and load the necessary data to call the controlled components by props.
 
-It can be recommended if your application is small and you are going to handle very few states that are not very complex. Or if you want to have a state isolated from the rest of the states of your app.
+**These components:**
+- Load the required information
+- Provide the section layout
+
+### Controlled Components by Props
+
+**What they are and why make them controlled by props**
+
+These components receive their state and the function to change it through their props. This facilitates component reuse within our application; we just need to respect their interface. We could call them visual or design components.
 
 **Pros:**
-
-- It is simpler to use than more complex libraries like Redux.
-- It does not require as much boilerplate code.
-- It is a native feature of React.
+- They are easier components to maintain
+- They allow for greater reuse
+- They are a good way to implement branding
 
 **Cons:**
-
-- It can limit you when you have a complex application.
-- It is easy to make mistakes that render the entire application or many parts that you do not want to render again.
-- It does not have any developer tools to view the current state of your application, such as Redux DevTools.
-
+- If we have several nested components of this type, it can generate a lot of prop drilling
 
 ## Redux
 
 **Pros:**
 
-- Centralized global state. With Redux, we can store both our data and our UI in a single library.
-- Debugging. With redux-devtools, we can see how our app is changing state, how, and when.
-- Scalable. We can add and remove reducers while maintaining the structure.
+- Centralized global state. With Redux, we can store both our data and our UI in a single library
+- Debugging. With redux-devtools, we can see how our app is changing state, how, and when
+- Scalable. We can add and remove reducers while maintaining the structure
 
 **Cons:**
 
-- Boilerplate. Considerable boilerplate is required for its implementation.
-- Learning curve. It has complexity for understanding at the beginning.
-- Verbosity. Redux can make your code more verbose, and for simple applications, the benefits might not outweigh the costs.
-
+- Boilerplate. Considerable boilerplate is required for its implementation
+- Learning curve. It has complexity for understanding at the beginning
+- Verbosity. Redux can make your code more verbose, and for simple applications, the benefits might not outweigh the costs
 
 ### Store Structure
 
@@ -99,3 +79,19 @@ One way to structure the store can be to respect the entities we have in our bac
 In this way, each reducer copy of an entity will be separate from each feature and can be reused.
 
 ![redux-structure](../assets/img/state-2.png)
+
+### useContext
+
+It can be recommended if your application is small and you are going to handle very few states that are not very complex. Or if you want to have a state isolated from the rest of the states of your app.
+
+**Pros:**
+
+- It is simpler to use than more complex libraries like Redux
+- It does not require as much boilerplate code
+- It is a native feature of React
+
+**Cons:**
+
+- It can limit you when you have a complex application
+- It is easy to make mistakes that render the entire application or many parts that you do not want to render again
+- It does not have any developer tools to view the current state of your application, such as Redux DevTools
