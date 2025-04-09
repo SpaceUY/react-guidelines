@@ -1,0 +1,21 @@
+---
+description: 
+globs: src/*
+alwaysApply: false
+---
+react-standards: This project follows a modular architecture with the following structure:
+- /src
+  - /common (shared assets, components, hooks, layouts, lib, providers, services, stores, types, utils)
+  - /features (feature-specific modules)
+    - shared assets, components, hooks, layouts, lib, providers, services, stores, types, utils
+  - /routes (router configuration)
+  - App.tsx
+  - main.tsx
+  
+Standards:
+1. Abstract third-party services behind service interfaces
+2. Use feature-based folders for domain-specific code
+3. Keep components atomic and reusable
+4. Use TanStack Router with type-safe routes
+5. Follow shadcn/ui component patterns
+6. Use Zustand for global state management 
