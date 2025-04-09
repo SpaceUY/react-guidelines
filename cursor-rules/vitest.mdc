@@ -247,6 +247,31 @@ export default defineConfig({
 - Testing third-party libraries
 - Not testing error cases
 - Writing flaky tests
+- Circular mocking: Don't mock the same response you're evaluating. If you're testing a controller or service, don't mock its exact output to verify the test. This creates a circular reference that doesn't actually test the implementation.
+
+  ```tsx
+  // BAD PRACTICE - Circular mocking
+  it("getUser controller returns user data", async () => {
+    // Mocking the exact response we want to test
+    const mockUserData = { id: 1, name: "John" };
+    getUserService.getUser = vi.fn().mockResolvedValue(mockUserData);
+    
+    // This test will always pass because we're mocking the exact output
+    const result = await getUserController.getUser(1);
+    expect(result).toEqual(mockUserData);
+  });
+  
+  // GOOD PRACTICE - Mock dependencies, not the controller itself
+  it("getUser controller returns formatted user data", async () => {
+    // Mock the lower-level service that the controller depends on
+    const mockRawUserData = { userId: 1, userName: "John" };
+    userRepository.fetchUser = vi.fn().mockResolvedValue(mockRawUserData);
+    
+    // Test that the controller transforms the data correctly
+    const result = await getUserController.getUser(1);
+    expect(result).toEqual({ id: 1, name: "John" });
+  });
+  ```
 
 ## 9. Debugging Tests
 

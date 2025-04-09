@@ -8,7 +8,13 @@ react-standards: This project follows a modular architecture with the following 
   - /common (shared assets, components, hooks, layouts, lib, providers, services, stores, types, utils)
   - /features (feature-specific modules)
     - shared assets, components, hooks, layouts, lib, providers, services, stores, types, utils
+  - /views (page-level components that compose UI from components)
+    - Each view corresponds to a specific route
+    - Views import and compose components from /common and /features
+    - Views handle page-level state and logic
   - /routes (router configuration)
+    - Routes import views from /views folder
+    - Handles route definitions and configurations
   - App.tsx
   - main.tsx
   
@@ -19,3 +25,5 @@ Standards:
 4. Use TanStack Router with type-safe routes
 5. Follow shadcn/ui component patterns
 6. Use Zustand for global state management 
+7. Views should focus on composition and layout, not complex logic
+8. Views connect components to data sources and services 
