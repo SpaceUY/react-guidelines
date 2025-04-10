@@ -58,7 +58,7 @@ These components receive their state and the function to change it through their
 **Cons:**
 - If we have several nested components of this type, it can generate a lot of prop drilling
 
-## Redux
+### Redux
 
 **Pros:**
 
@@ -72,7 +72,7 @@ These components receive their state and the function to change it through their
 - Learning curve. It has complexity for understanding at the beginning
 - Verbosity. Redux can make your code more verbose, and for simple applications, the benefits might not outweigh the costs
 
-### Store Structure
+#### Store Structure
 
 One way to structure the store can be to respect the entities we have in our backend, having one reducer for each entity and adding to this a reducer per feature to handle the UI state of the same.
 
@@ -80,9 +80,48 @@ In this way, each reducer copy of an entity will be separate from each feature a
 
 ![redux-structure](../assets/img/state-2.png)
 
-### useContext
+### Zustand
 
-It can be recommended if your application is small and you are going to handle very few states that are not very complex. Or if you want to have a state isolated from the rest of the states of your app.
+**Pros:**
+
+- Minimal boilerplate. Much simpler setup compared to Redux
+- TypeScript friendly. Great type inference out of the box
+- Small bundle size. Significantly smaller than Redux
+- Flexible architecture. Supports both centralized and feature-based store organization
+
+**Cons:**
+
+- Less established ecosystem compared to Redux
+- Fewer dev tools available out of the box
+- May require additional effort for complex middleware scenarios
+
+#### Feature-Based Store Organization
+
+An alternative approach to store management, particularly well-suited for Zustand, is to organize stores by feature rather than maintaining a centralized store. This approach follows a more modular pattern:
+
+```
+- src
+  - common
+    - components
+    - views
+    - hooks
+      - use-auth-store.ts
+      - use-additional-store.ts
+  - modules
+    - wallets
+      - components
+      - views
+      - hooks
+        - use-wallets-store.ts
+```
+
+**Benefits of this approach:**
+- Better code splitting: Stores are only loaded when their respective features are used
+- Improved maintainability: Each feature manages its own state
+- Reduced complexity: Easier to understand and modify individual feature states
+- Better performance: Stores are created on-demand when features are accessed
+
+### useContext
 
 **Pros:**
 

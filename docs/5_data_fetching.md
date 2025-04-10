@@ -7,169 +7,64 @@ nav_order: 5
 # Data fetching
 
 **Technology Review**  
-_Written by: Federico Castañares, Facundo Panizza_
+_Written by: Federico Castañares, Facundo Panizza, Enzo Corrales_
 
-## Article description
-I will try to cover all ways with pro and crons. I will start with the basic implementation to the most usefull tool
+## RTK Query vs React Query
 
-### Fetch
-This example demonstrates fetching data from a public API and displaying it in a list.
+## RTK Query
 
-```jsx
-import React, { useState, useEffect } from 'react';
+RTK Query is a powerful tool integrated with Redux Toolkit, specifically designed for fetching and caching server state efficiently.
 
-const DataFetchingComponent = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+### Pros:
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+- Easy-to-use caching and cache invalidation.
+- Built-in loading states and error handling.
 
-    fetchData();
-  }, []);
+### Cons:
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+- Best used with Redux Toolkit; familiarity with Redux helps but isn't strictly required.
+- More boilerplate required
 
-  if (isError) {
-    return <p>Error fetching data</p>;
-  }
+### Example:
 
-  return (
-    <div>
-      <h1>Data List</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>{item.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default DataFetchingComponent;
-```
-
-#### Explanation:
-• State Management: We use useState to manage the data, loading, and error states.
-• Data Fetching: The fetchData function is defined inside the useEffect hook to fetch data when the component mounts.
-• Error Handling: If the fetch request fails, an error is caught, and the error state is set to true.
-• Loading State: While the data is being fetched, a loading message is displayed.
-• Rendering Data: Once the data is fetched successfully, it is displayed in a list.
-
-### Axios -> where fetch have superpowers
-
-The most important thing of axios are:
-• Interceptors: Interceptor is the way for call always the same query builder. For example when you call to your API and you need add a token in the headers or when the response is unauthorized problaby you want redirect to login url.
-You can create your interceptor like this:
-
-```jsx
-import { getLocalStorage } from '@/utils/localstorage';
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-
-export const baseURL = import.meta.env.VITE_BACK_URL ?? 'http://localhost:4000';
-
-export const api: AxiosInstance = axios.create({
-  baseURL,
-  withCredentials: false,
-});
-
-api.interceptors.request.use((config) => {
-  const token = getLocalStorage('token');
-  config.headers['Authorization'] = `Bearer ${token}`;
-
-  return config;
-});
-
-api.interceptors.response.use(
-  (response) => response,
-  async (error: { response: AxiosResponse; config: AxiosRequestConfig }) => {
-    if (error.response?.status === 401) {
-      document.location.href = '/login';
-    }
-
-    return Promise.reject(error);
-  },
-);
-```
-
-
-## React-query & Modern redux RTK
-### Modern Redux, RTK, Redux Query
-
-**Pros:**
-
-- Avoids a lot of unnecessary boilerplate.
-- Has a fairly easy-to-use cache management, as well as cache invalidation.
-- Supports error handling and loading states.
-
-**Cons:**
-
-- Not necessary, but it is recommended to know the conventional way of Redux for a better understanding of how it works.
-
-#### Example:
-
-Query
-
-```
+```ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  tagTypes: [Users],
+  tagTypes: ['Users'],
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => 'users',
       providesTags: ['Users'],
     }),
-    createUser: build.mutation({
+    createUser: builder.mutation({
       query: (body) => ({
         url: 'users',
         method: 'POST',
         body,
       }),
       invalidatesTags: ['Users'],
-    })
+    }),
   }),
 });
 
 export const { useGetUsersQuery } = api;
 ```
 
-<br />
-This will create a cache for the query “getUsers” and when a new user is created is going to refresh that cache.
-<br />
-<br />
+This creates a cache for `getUsers`. When a new user is created, the cache automatically refreshes.
 
-```
+Usage:
+
+```tsx
 import { useGetUsersQuery } from './api';
 
 const UsersList = () => {
   const { data, isLoading, isError } = useGetUsersQuery();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (isError) {
-    return <p>Error fetching data</p>;
-  }
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching data</p>;
 
   return (
     <div>
@@ -186,30 +81,190 @@ const UsersList = () => {
 export default UsersList;
 ```
 
-### Conventional Redux
+## React Query
 
-#### Create async thunk
+React Query is a popular library designed specifically for managing server state, data fetching, and caching seamlessly.
 
-The idea of Redux is to centralize the state of our application in our store and separate our state from our components, providing persistence in the data.
+### Pros:
 
-As mentioned earlier, the implementation of Modern Redux requires less code and comes with built-in methods that are often necessary to write if we don't have them.
+- Automatic caching, refetching, and background syncing.
+- Minimal boilerplate.
+- Built-in support for loading, error, and success states.
+- Ideal for apps with many GET requests.
 
-Nevertheless, let's take a look at the flow.
+### Cons:
 
-**Pros**:
+- Primarily for server state; not intended for UI state.
 
-- Separation of concerns; on one hand, we have the actions, on the other hand, the services, and finally, how the combination of these two changes the state of our application.
+### Example:
 
-**Cons**:
+```tsx
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-- Requires writing a considerable amount of boilerplate.
-- Initially, communication between each responsibility may seem confusing.
+function UsersList() {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['users'],
+    queryFn: () => axios.get('/api/users').then((res) => res.data),
+  });
 
-### The Flow
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching data</p>;
 
-Dispatch in our components to an action:
-dispatch(createCashierAction(CashierLoad));
+  return (
+    <ul>
+      {data.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
 
-### Action
+---
 
-We create our action that will call the service, then from our slice, we will listen to the response whether it fails or not. If it fails, we have the ability to send the error message to the slice. In the example below, we return the error message with the error response structure of a service with NestJS. We can use this or use our own messages or use just one generic.
+## Additional information
+
+This table created by tanstack ( creators of React Query ) is a helpful visual aid to quickly see underlying differences
+[Comparative table](https://tanstack.com/query/v4/docs/framework/react/comparison)
+
+## Fetch vs Axios
+
+Both Fetch and Axios are commonly used to perform HTTP requests, each with its strengths.
+
+### Fetch
+
+Fetch is a native browser API for making HTTP requests.
+
+```ts
+fetch('/api/users')
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
+```
+
+#### Pros:
+
+- Native and requires no additional libraries.
+- Universally supported.
+
+#### Cons:
+
+- Requires manual handling of JSON and errors.
+- Slightly less ergonomic than Axios.
+
+### Axios
+
+Axios is a popular, promise-based HTTP client.
+
+```ts
+import axios from 'axios';
+
+axios
+  .get('/api/users')
+  .then((res) => console.log(res.data))
+  .catch((err) => console.error(err));
+```
+
+#### Pros:
+
+- Simple syntax.
+- Automatic JSON handling.
+- Built-in interceptors for global error handling.
+
+#### Cons:
+
+- External library increases bundle size.
+
+## Handling 401 and 403 with Axios
+
+Axios interceptors allow easy global handling of common HTTP errors like unauthorized (401) or forbidden (403).
+
+### Example:
+
+```ts
+import axios from 'axios';
+
+const api = axios.create({ baseURL: '/api' });
+
+api.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    if (error.response?.status === 401) {
+      window.location.href = '/login';
+    }
+
+    if (error.response?.status === 403) {
+      alert('Access denied.');
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export default api;
+```
+
+## Using Axios with RTK Query
+
+To use Axios with RTK Query, customize the `baseQuery`:
+
+```ts
+import { createApi } from '@reduxjs/toolkit/query/react';
+import axios from 'axios';
+
+const axiosBaseQuery =
+  ({ baseUrl }) =>
+  async ({ url, method, data }) => {
+    try {
+      const result = await axios({ url: baseUrl + url, method, data });
+      return { data: result.data };
+    } catch (error) {
+      return { error: error.response?.data || error.message };
+    }
+  };
+
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: axiosBaseQuery({ baseUrl: '/api' }),
+  endpoints: (builder) => ({
+    getUsers: builder.query({ query: () => ({ url: 'users', method: 'GET' }) }),
+  }),
+});
+
+export const { useGetUsersQuery } = api;
+```
+
+## Using Axios with React Query
+
+Using Axios with React Query is straightforward:
+
+```tsx
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+
+function UsersList() {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['users'],
+    queryFn: () => axios.get('/api/users').then((res) => res.data),
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching data</p>;
+
+  return (
+    <ul>
+      {data.map((user) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Conclusion
+
+- **Fetch:** Best for minimal dependencies.
+- **Axios:** Recommended for robust features like interceptors.
+- **React Query:** Ideal for straightforward caching and fetching.
+- **RTK Query:** Great when integrating with Redux Toolkit and managing global data cache.
