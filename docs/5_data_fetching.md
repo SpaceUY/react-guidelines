@@ -28,24 +28,24 @@ RTK Query is a powerful tool integrated with Redux Toolkit, specifically designe
 ### Example:
 
 ```ts
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  tagTypes: ['Users'],
+  reducerPath: "api",
+  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+  tagTypes: ["Users"],
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => 'users',
-      providesTags: ['Users'],
+      query: () => "users",
+      providesTags: ["Users"],
     }),
     createUser: builder.mutation({
       query: (body) => ({
-        url: 'users',
-        method: 'POST',
+        url: "users",
+        method: "POST",
         body,
       }),
-      invalidatesTags: ['Users'],
+      invalidatesTags: ["Users"],
     }),
   }),
 });
@@ -58,7 +58,7 @@ This creates a cache for `getUsers`. When a new user is created, the cache autom
 Usage:
 
 ```tsx
-import { useGetUsersQuery } from './api';
+import { useGetUsersQuery } from "./api";
 
 const UsersList = () => {
   const { data, isLoading, isError } = useGetUsersQuery();
@@ -99,13 +99,13 @@ React Query is a popular library designed specifically for managing server state
 ### Example:
 
 ```tsx
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 function UsersList() {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['users'],
-    queryFn: () => axios.get('/api/users').then((res) => res.data),
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -137,7 +137,7 @@ Both Fetch and Axios are commonly used to perform HTTP requests, each with its s
 Fetch is a native browser API for making HTTP requests.
 
 ```ts
-fetch('/api/users')
+fetch("/api/users")
   .then((res) => res.json())
   .then((data) => console.log(data))
   .catch((err) => console.error(err));
@@ -158,10 +158,10 @@ fetch('/api/users')
 Axios is a popular, promise-based HTTP client.
 
 ```ts
-import axios from 'axios';
+import axios from "axios";
 
 axios
-  .get('/api/users')
+  .get("/api/users")
   .then((res) => console.log(res.data))
   .catch((err) => console.error(err));
 ```
@@ -183,19 +183,19 @@ Axios interceptors allow easy global handling of common HTTP errors like unautho
 ### Example:
 
 ```ts
-import axios from 'axios';
+import axios from "axios";
 
-const api = axios.create({ baseURL: '/api' });
+const api = axios.create({ baseURL: "/api" });
 
 api.interceptors.response.use(
   (res) => res,
   (error) => {
     if (error.response?.status === 401) {
-      window.location.href = '/login';
+      window.location.href = "/login";
     }
 
     if (error.response?.status === 403) {
-      alert('Access denied.');
+      alert("Access denied.");
     }
 
     return Promise.reject(error);
@@ -210,8 +210,8 @@ export default api;
 To use Axios with RTK Query, customize the `baseQuery`:
 
 ```ts
-import { createApi } from '@reduxjs/toolkit/query/react';
-import axios from 'axios';
+import { createApi } from "@reduxjs/toolkit/query/react";
+import axios from "axios";
 
 const axiosBaseQuery =
   ({ baseUrl }) =>
@@ -225,10 +225,10 @@ const axiosBaseQuery =
   };
 
 export const api = createApi({
-  reducerPath: 'api',
-  baseQuery: axiosBaseQuery({ baseUrl: '/api' }),
+  reducerPath: "api",
+  baseQuery: axiosBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
-    getUsers: builder.query({ query: () => ({ url: 'users', method: 'GET' }) }),
+    getUsers: builder.query({ query: () => ({ url: "users", method: "GET" }) }),
   }),
 });
 
@@ -240,13 +240,13 @@ export const { useGetUsersQuery } = api;
 Using Axios with React Query is straightforward:
 
 ```tsx
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 function UsersList() {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['users'],
-    queryFn: () => axios.get('/api/users').then((res) => res.data),
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
   });
 
   if (isLoading) return <p>Loading...</p>;
