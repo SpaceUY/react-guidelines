@@ -6,7 +6,7 @@ nav_order: 14
 
 ## ¿Qué es?
 
-React devtools es una extensión oficial que nos brinda [[React]] como una serie de herramientas para apoyar al desarrollo y con el proceso de [[debug]].
+React devtools es una extensión oficial que nos brinda React como una serie de herramientas para apoyar al desarrollo y con el proceso de debug.
 
 Esta extensión se utiliza a partir de la instalación en el navegador. Al añadirla vamos a tener disponibles las ventanas de _Components_ y _Profiler_ en las DevTools del navegador, que nos permiten explorar el **árbol de componentes** de la aplicación de react en la que estemos trabajando, ver los props y el estado actual de cada uno de los componentes. Incluso nos permite editar valores en tiempo real para probar distintos comportamientos.
 
