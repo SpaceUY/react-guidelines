@@ -21,3 +21,13 @@ Great question! Consistency is key to our success. By following these guidelines
 - **Maintain Quality**: Clean code is easier to debug, test, and maintain. This means fewer bugs and faster development!
 - **Onboard Quickly**: New team members can get up to speed faster if our codebase is consistent and well-documented.
 - **Enjoy the Process**: Let's face it, writing and reading clean code is just more fun!
+
+## Run locally:
+
+```bash
+bundle install
+```
+
+```bash
+bundle exec jekyll serve
+```
