@@ -32,6 +32,7 @@ Here's a sneak peek of what we cover:
 - **Common Pitfalls**: Mistakes to avoid and how to fix them.
 - **Useful Tools**: Recommended tools and libraries that make our lives easier.
 - **Notifications**: Implementing push notifications with Firebase Cloud Messaging.
+- **Project Setup**: Setting up React projects with Vite and TypeScript.
 
 ## Let's Make It Happen!
 
