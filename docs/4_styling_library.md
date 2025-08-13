@@ -6,26 +6,44 @@ nav_order: 4
 
 # Choosing the Right Styling Library for Your React Project
 
-When it comes to styling your React project, the decision should depend on the project nature and complexity.
+When it comes to styling your React project, we've standardized on **ShadCN/UI** as our primary styling solution for consistency and maintainability across all projects.
 
-For **small projects** or **dashboards**, libraries like **Material-UI** are easier to implement as they provide ready-components out of the box. They can be further modified using **Styled components** or custom css classes.
+## 🎯 **Our Standard: ShadCN/UI**
 
-**Material-UI** is perfect if you aim to incorporate Material Design principles, providing a wide range of pre-designed components that are ready-to-use and customizable.
+**ShadCN/UI** is our go-to choice for all React projects because it provides:
 
-For projects calling for a **more extensive or highly-customized design**, consider using **Tailwind CSS**. This utility-first CSS framework allows for deep customization and control over your design, making it quite efficient for larger and more intricate applications.
+- **Consistent Design System**: Unified component library across all projects
+- **Tailwind CSS Foundation**: Utility-first approach for maximum customization
+- **Zero Abstraction**: Full control over every aspect of styling
+- **Accessibility Built-in**: Components follow accessibility best practices
+- **Easy Customization**: Modify colors, spacing, and components without limitations
+- **Performance**: Lightweight and optimized for production
 
-Several Tailwind libraries for React are available to speed up development:
+## 🚀 **Implementation Guidelines**
 
-- **Headless UI:** Provides completely unstyled, fully accessible UI components that you can use as the foundation of your tailored components.
+### **For All New Projects**
+1. **Start with ShadCN/UI** as the base component library
+2. **Use Tailwind CSS** for custom styling and layout
+3. **Follow our design system** for colors, spacing, and typography
+4. **Customize components** to match your project's visual identity
 
-- **Shadcn/UI:** Based on TailwindCSS. Provides basic styling on several components. Removes abstraction and lets you modify every aspect of it.
+### **Component Customization**
+```bash
+# Install ShadCN/UI components
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add input
+# ... add more as needed
+```
 
-- **Twin Macro:** Allows you to blend components with utility classes to customize your design.
+### **Typography**
+- Standardize font families and sizes
+- Maintain proper hierarchy with consistent heading styles
 
-- **FlowBite:** Components library built with Tailwind CSS and fully customizable with provided utilities.
+## 💡 **Best Practices**
 
-- **React Aria:** A library of React Hooks from Adobe, that provides accessible UI primitives, useful when integrating Tailwind CSS.
-
-- **Material Tailwind:** Merges Material UI beauty with Tailwind CSS utility, ideal for implementing Google's Material Design with the efficiency of Tailwind
-
-It's important to consider your project size, the needed speed of development, and how much customizability you desire. Each library has its own strengths and is tailored towards different needs.
+1. **Start Simple**: Begin with basic ShadCN/UI components
+2. **Customize Gradually**: Modify components to match your design needs
+3. **Maintain Consistency**: Use the same patterns across similar components
+4. **Document Changes**: Keep track of customizations for team reference
+5. **Performance First**: Avoid unnecessary CSS-in-JS for performance-critical applications

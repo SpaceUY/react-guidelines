@@ -1,3 +1,9 @@
+---
+title: Design References
+layout: default
+nav_order: 17
+---
+
 # Design References & Resources
 
 This document contains curated design resources that our development team is familiar with and can implement. Designers should use these references to create designs that align with our technical capabilities.
