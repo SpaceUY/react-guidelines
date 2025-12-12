@@ -55,6 +55,18 @@ Interactive vector graphics and animations with state machines.
 
 **Best for**: Interactive illustrations, game-like interfaces, and complex animated graphics
 
+### [Animate UI](https://animate-ui.com/)
+Animation library specifically designed for enhancing ShadCN/UI components with smooth transitions and effects.
+
+**What we can implement:**
+- **Component Animations**: Smooth transitions for UI components
+- **Micro-interactions**: Subtle animations that enhance user experience
+- **Transition Effects**: Page and component transitions
+- **Performance Optimized**: Lightweight animations that don't impact performance
+- **Easy Integration**: Simple integration with React and ShadCN/UI components
+
+**Best for**: Enhancing ShadCN/UI components with smooth animations and transitions
+
 ## 🎯 Icon Systems
 
 ### [Helpy UI Icons](https://icons.pqoqubbw.dev/)
@@ -86,6 +98,7 @@ This section provides reference designs organized by platform and industry to he
 - [Motion.dev React Examples](https://examples.motion.dev/react) - React Animations
 - [GSAP Demos](https://gsap.com/demos) - Advanced Animations
 - [Rive.app](https://rive.app) - Interactive Graphics
+- [Animate UI](https://animate-ui.com/) - Animation Library
 - [Helpy UI Icons](https://icons.pqoqubbw.dev/) - Animated Icons
 
 ---

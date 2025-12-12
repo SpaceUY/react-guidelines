@@ -6,7 +6,7 @@ nav_order: 4
 
 # Choosing the Right Styling Library for Your React Project
 
-When it comes to styling your React project, we've standardized on **ShadCN/UI** as our primary styling solution for consistency and maintainability across all projects.
+When it comes to styling your React project, we've standardized on **[ShadCN/UI](https://ui.shadcn.com/)** as our primary styling solution for consistency and maintainability across all projects.
 
 ## 🎯 **Our Standard: ShadCN/UI**
 
@@ -47,3 +47,8 @@ npx shadcn@latest add input
 3. **Maintain Consistency**: Use the same patterns across similar components
 4. **Document Changes**: Keep track of customizations for team reference
 5. **Performance First**: Avoid unnecessary CSS-in-JS for performance-critical applications
+
+## 📚 **Resources**
+
+- **[ShadCN/UI](https://ui.shadcn.com/)**: Official ShadCN/UI component library and documentation
+- **[Animate UI](https://animate-ui.com/)**: Animation library for enhancing UI components with smooth transitions and effects
