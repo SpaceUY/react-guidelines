@@ -1,3 +1,9 @@
+---
+title: Styling
+layout: default
+nav_order: 4
+---
+
 # shadcn/ui and Tailwind CSS in React + Vite: Why and How to Use Them
 
 ## Introduction
@@ -9,21 +15,27 @@
 ## Why Use shadcn/ui and Tailwind Together?
 
 ### Development Speed
+
 By combining ready-to-use components with utility classes, you can build complex interfaces quickly. shadcn/ui provides fully functional components (with logic and accessibility already handled) that you just insert into your code, avoiding the need to "reinvent the wheel" for common elements like buttons, menus, dialogs, etc. Tailwind speeds up styling through utility classes, eliminating repetitive manual CSS writing. Together, this combo enables rapid prototyping and feature iteration, reducing time-to-market.
 
 ### Visual Consistency
+
 Tailwind establishes a consistent design system (color palette, sizing, spacing, typography) applied uniformly across all components. shadcn/ui leverages this by using Tailwind classes by default, ensuring that every UI element adheres to the same styling guidelines.
 
 ### Full Customization and Control
+
 Because shadcn/ui components live inside your project, you can freely modify them to suit your needs. You're not constrained by third-party abstractions — if a component doesn't fit exactly what you want, you can edit its JSX/TSX and Tailwind classes directly. Additionally, shadcn/ui's architecture is designed for flexibility, using utilities like `class-variance-authority` to define component variants elegantly. You have full control over markup and styling, making it easy to build unique designs without straying from a stable foundation. Importantly, since there's no external package dependency, your components won't change unexpectedly due to library updates — they only change if you decide to update them.
 
 ### Bundle Optimization
+
 One of the most notable technical benefits is the reduction in bundle size and dependencies. shadcn/ui adds virtually no extra weight to your application since it's not a bundled library — its components compile as part of your own code. In contrast, many traditional UI libraries can add dozens or even hundreds of KB to the final JavaScript/CSS bundle (e.g., Material UI can add ~90 KB). With shadcn/ui + Tailwind, you only include the code and styles for the components you actually use. Tailwind CSS also purges unused classes in production, leaving only the necessary CSS. The result is a potentially lighter and faster-loading application.
 
 ### Built-in Accessibility and Best Practices
+
 shadcn/ui is built on top of **Radix UI**, a set of accessible primitives for React. This means that components like dialogs, dropdowns, tooltips, etc., already meet accessibility standards (WAI-ARIA) by default. In other words, by using shadcn/ui, you get components with built-in accessible behavior (keyboard navigability, proper ARIA roles, focus management, etc.) without extra work. Tailwind complements this by making it easy to apply accessible styles.
 
 ### Easy Adoption in React + Vite Projects
+
 Both shadcn/ui and Tailwind CSS are designed to integrate smoothly with modern tools. Tailwind works perfectly in Vite environments (fast builds, HMR), and shadcn/ui offers a CLI that automatically configures everything in a React project. This reduces the friction of adding them to your stack. Additionally, the community around React and Tailwind is massive, so there's plenty of support, plugins, and resources available.
 
 ## Comparison with Other Popular Alternatives
@@ -68,7 +80,7 @@ And then import and use it in your React component.
 Tailwind eliminates the need to write these classes manually by providing predefined utilities. Instead of creating a `.button` class, you'd simply apply:
 
 ```jsx
-className="bg-blue-500 p-2"
+className = "bg-blue-500 p-2";
 ```
 
 This achieves the same visual result without naming a class or writing custom CSS from scratch. The benefit is speed and consistency: Tailwind's design system ensures that `p-2` means the exact same padding across all components, avoiding discrepancies due to human error. With CSS Modules, consistency depends on the developer's discipline.
@@ -294,7 +306,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogAction,
-  AlertDialogCancel
+  AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
@@ -308,7 +320,8 @@ function DeleteButton() {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. All your data will be permanently deleted.
+            This action cannot be undone. All your data will be permanently
+            deleted.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -358,21 +371,23 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         // ... other variants
       },
       size: {
         sm: "h-9 px-3 rounded-md",
         md: "h-10 px-4 rounded-md",
-        lg: "h-11 px-8 rounded-md"
-      }
+        lg: "h-11 px-8 rounded-md",
+      },
     },
     defaultVariants: {
       variant: "default",
-      size: "md"
-    }
-  }
+      size: "md",
+    },
+  },
 );
 ```
 
