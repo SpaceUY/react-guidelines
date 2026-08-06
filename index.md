@@ -33,6 +33,7 @@ Here's a sneak peek of what we cover:
 - **Useful Tools**: Recommended tools and libraries that make our lives easier.
 - **Notifications**: Implementing push notifications with Firebase Cloud Messaging.
 - **Project Setup**: Setting up React projects with Vite and TypeScript.
+- **Logging & Monitoring**: Error tracking, session replay, and analytics with PostHog.
 
 ## Let's Make It Happen!
 
