@@ -39,4 +39,4 @@ Here's a sneak peek of what we cover:
 
 Remember, these guidelines are here to help us, not to restrict us. Feel free to suggest improvements or ask questions anytime. Let's work together to keep our codebase clean, efficient, and fun to work with.
 
-Happy coding! 🚀🚀
+Happy coding! 🚀
